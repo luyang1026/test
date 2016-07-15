@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		
+	</style>
+	<script src="bower_components/angular/angular.js"></script>
+	<script>
+		var url ='/merch/listByCriteria';
+		var params = {
+			criterias:{
+				merchId:'',
+				merchName:'',
+				linkTel:'',
+				bankId:''
+			},
+			pagingInfo:{
+				page:0,
+				pageSize:10
+			}
+		}
+		angular.module('app',[])
+			.config(function($httpProvider){
+				$httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
+			})
+			.controller('ctrl',function($http,$scope){
+				$scope.click = function(){
+					$http.post('http://172.16.1.224:8089'+url,params)
+						.success(function(data){
+							console.log(data)
+						})
+						.error(function(err){
+							console.log(err)
+						})
+				}
+			})
+	</script>
+</head>
+<div class="div1"></div>
+<body ng-controller="ctrl">
+	<a ng-click="click()" href="#">click</a>
+</body>
+</html>
