@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		window.onload = function(){
+			var btn = document.getElementsByTagName('button')[0];
+			var file = document.querySelector('input');
+			var six = 11;
+			var bolbSix = new Blob([six]);
+			btn.onclick = function(){
+				var fileItem = file.files[0]
+				console.log(fileItem)
+				var reader = new FileReader()
+				reader.readAsText(fileItem);
+				reader.onload = function(){
+					console.log(this.result)
+				}
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<input type="file">
+	<button>read</button>
+</body>
+</html>

@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<style>
-		.div{
-			width: 300px;
-			height: 300px;
-			border: 1px solid #000;
-			margin: auto 300px;
-		}
-	</style>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-file-upload/dist/angular-file-upload.js"></script>
 	<script>
-		var http = new XMLHttpRequest();
-		http.open('GET','test.less',true);
-		http.send();
-		http.onload = function(){
-			if(http.status==200){
-				console.log(http.responseText)
-			}
-		}
+		angular.module('app',['angularFileUpload'])
+			.controller('ctrl',function($scope,FileUploader){
+				$scope.g = new FileUploader();
+				setTimeout(function(){
+					console.log($scope.g)
+				},4000)
+			})
 	</script>
 </head>
-<body>
-	<div class="div"></div>
+<body ng-controller="ctrl">
+	<input type="file" nv-file-select uploader="g" ng-model="c">
+	<ul>
+		<li ng-repeat="item in g.queue">
+			<p>{{item.file.name}}</p>
+			<button ng-click="item.upload()">upload</button>
+		</li>
+	</ul>
+	<pre>{{c|json}}</pre>
 </body>
 </html>

@@ -1,0 +1,1 @@
+{"C:\\Users\\dell\\Desktop\\test\\gulp\\gulpfile.js":{"sha1":"609972cc5506c020c49ae82829864b514473bfaf","tasks":{"a":{"name":"a","dependencies":""},"b":{"name":"b","dependencies":""},"c":{"name":"c","dependencies":"a b"},"default":{"name":"default","dependencies":""}}}}

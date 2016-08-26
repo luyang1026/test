@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script>
+		$(function(){
+			var n = 1;
+			$('button').click(function(){
+				$('input').val(n);
+				
+				var param = {
+					page:n-1||0,
+					pageSize:10
+				}
+				$.post('http://localhost:8888/merchlist',param, function(data, textStatus, xhr) {
+					var str = '';
+					$('ul').empty();
+					if(!data.length){
+						alert('end')
+						return;
+					}
+					n++;
+					data.forEach(function(item,index){
+						str += '<li>'+item.merch_name+'</li>';
+						if(index==data.length-1){
+							$('ul').html(str);
+						}
+					});
+				});
+			})
+		});
+	</script>
+</head>
+<body>
+	<button>next</button>
+	第<input type="text" value="1">页
+	<ul>
+		
+	</ul>
+</body>
+</html>

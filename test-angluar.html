@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+	<script>
+		angular.module('app',['LocalStorageModule'])
+			.run(function($rootScope,localStorageService,$interval){
+				var ls = localStorageService;
+				ls.set('a',{a:1,b:[12,2,3]})
+				ls.set('ac',{a:1,b:[12,2,3]})
+				console.log(ls.length())
+			})
+	</script>
+</head>
+<body>
+	<input type="text" ng-model="a">{{show}}
+</body>
+</html>

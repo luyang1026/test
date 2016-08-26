@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Title</title>
+	<style>
+		body{background-color: #ccc;}
+		canvas{background-color: #fff;}
+	</style>
+</head>
+<body>
+
+<div id="container">
+	<canvas id="can">Your Browser does not support Canvas, please upgrade</canvas>
+</div>
+
+<script>
+(function(){
+
+var canvas = document.getElementById('can');
+var ctx = canvas.getContext('2d');
+
+canvas.width = 400;
+canvas.height = 400;
+	
+// ctx.fillRect(0,0, 100, 100);
+
+ctx.transform(1, 1,1, 0, 0, 0);
+
+ctx.fillStyle = "#red";
+ctx.fillRect(0,0, 100, 100);
+
+}());
+</script>
+</body>
+</html>

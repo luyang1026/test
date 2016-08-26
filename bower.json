@@ -1,0 +1,22 @@
+{
+  "name": "test",
+  "description": "",
+  "main": "test.js",
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "^2.0.0",
+    "angular-file-upload": "^2.3.4",
+    "bootstrap": "^3.3.6",
+    "angular-local-storage": "^0.2.7",
+    "angular-ui-router": "^0.3.1"
+  }
+}

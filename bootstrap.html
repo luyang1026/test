@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="bootstrap.css">
-	
+	<link rel="stylesheet" href="bower_components/ui-bootstrap-csp.css">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-animate.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script>
+		angular.module('app',['ngAnimate','ui.bootstrap'])
+			.controller('ctr',function($scope){
+				$scope.a = 1;
+			})
+	</script>
 </head>
-<body>
-	<table class="table table-bordered table-hovered">
-		<thead>
-			<tr>
-				<th>1</th>
-				<th>1</th>
-				<th>1</th>
-				<th>1</th>
-			</tr>
-		</thead>
-		<tr>
-			<td>阿斯顿发送到发送到发送到发送到发士大夫阿斯顿发送到发送到发送到发送到发士大夫阿斯顿发送到发送到发送到发送到发士大夫阿斯顿发送到发送到发送到发送到发士大夫阿斯顿发送到发送到发送到发送到发士大夫</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-		</tr>
-	</table>
+<body ng-controller="ctr">
+	<uib-accordion>
+	    <uib-accordion-group heading="Static Header, initially expanded" >
+	      This content is straight in the template.
+	    </uib-accordion-group>
+	     <uib-accordion-group heading="Static Header, initially expanded"">
+	    	{{a}}
+	    </uib-accordion-group>
+  </uib-accordion>	{{a}}
 </body>
 </html>
