@@ -9,9 +9,21 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "del": "^2.2.2",
+    "glob": "^7.0.6",
+    "gulp-concat": "^2.6.0",
+    "gulp-copy": "0.0.2",
+    "gulp-flatten": "^0.3.1",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-inject": "^4.1.0",
     "gulp-jshint": "^2.0.1",
+    "gulp-less": "^3.1.0",
     "gulp-load-plugins": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sequence": "^0.4.6",
+    "gulp-uglify": "^2.0.0",
     "jshint": "^2.9.3",
-    "jshint-stylish": "^2.2.1"
+    "jshint-stylish": "^2.2.1",
+    "wiredep": "^4.0.0"
   }
 }

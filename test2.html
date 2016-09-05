@@ -4,21 +4,17 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script>
+		sessionStorage.setItem
+	</script>
 </head>
 <body>
-	<ul>
-		<li class="aa"></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
+	<button id="btn">click</button>
+
 	<script>
-		// ES5严格模式
-		'use strict';
-		function a(){
-			console.log(this)
-		}
-		var aa = new a();
+		$('#btn').click(function(event) {
+			sessionStorage.setItem('a',1)
+		});
 		
 	</script>
 </body>

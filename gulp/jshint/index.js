@@ -1,3 +1,1 @@
-document.onclick = function(){
-	console.log(1)
-}
+console.log(process.env)
