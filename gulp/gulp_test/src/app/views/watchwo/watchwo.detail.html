@@ -1,0 +1,192 @@
+<div class="modal-header" ng-if="title">
+	<button type="button" class="close" ng-click="$dismiss()">
+		<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+	</button>
+	<h4 class="modal-title text-center">{{title}}</h4>
+</div>
+<div class="modal-body text-center" style="overflow:hidden;word-break:break-all;">
+	<!-- 报修：公有部分 -->
+	<!-- 状态{{role.state}}
+	项目{{role.type}} -->
+	<section>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">提交时间：</p>
+					<p class="col-md-8 text-left">{{data.createDate}}</p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row" ng-if="role.type==1">
+					<p class="col-md-4">报修设备：</p>
+					<p class="col-md-8 text-left">{{data.device}}</p>
+				</div>
+				<div class="row" ng-if="role.type!=1">
+					<p class="col-md-4">类别：</p>
+					<p class="col-md-8 text-left">{{data.category|category}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">业主电话：</p>
+					<p class="col-md-8 text-left">{{data.mobile}}</p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">地址：</p>
+					<p class="col-md-8 text-left">{{data.house.block}}-{{data.house.unit}}-{{data.house.room}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6" ng-if="role.type==1">
+				<div class="row">
+					<p class="col-md-4">报修详情：</p>
+					<p class="col-md-8 text-left">{{data.remark}}</p>
+				</div>
+			</div>
+			<div class="col-md-6" ng-if="role.type==2">
+				<div class="row">
+					<p class="col-md-4">内容：</p>
+					<p class="col-md-8 text-left">{{data.content}}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<hr>
+	<!-- 报修：待指派 -->
+	<section ng-if="role.type==1&&role.state==0">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">指派失败：</p>
+					<p class="col-md-8 text-left">{{data.lastModified}}</p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">原因：</p>
+					<p class="col-md-8 text-left">{{data.assingDate}}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 报修：处理中及已维修 -->
+	<section ng-if="role.type==1&&(role.state==1||role.state==2||role.state==3||role.state==4)">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">指派时间：</p>
+					<p class="col-md-8 text-left">{{data.assignDate}}</p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">指派给：</p>
+					<p class="col-md-8 text-left">{{data.worker}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">联系电话：</p>
+					<p class="col-md-8 text-left">{{data.workerMobile}}</p>
+				</div>
+			</div>
+		</div>
+	<hr>
+	</section>
+	<!-- 报修：已维修 -->
+	<section ng-if="role.type==1&&(role.state==2||role.state==3||role.state==4)">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">接单时间：</p>
+					<p class="col-md-8 text-left">{{data.ordersTime}}</p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">接单人：</p>
+					<p class="col-md-8 text-left">{{data.ordersPeople}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">接单电话：</p>
+					<p class="col-md-8 text-left">{{data.ordersMobile}}</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">完成维修：</p>
+					<p class="col-md-8 text-left">{{data.finishDate}}</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">业主确认：</p>
+					<p class="col-md-8 text-left">{{data.confirmDate}}</p>
+				</div>
+			</div>
+		</div>
+	<hr>
+	</section>
+	<!-- 报修：关闭 -->
+	<section ng-if="role.type==1&&(role.state==4)">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">工单关闭：</p>
+					<p class="col-md-8 text-left">{{data.closeReason}}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 投诉、表扬：已回复 -->
+	<section ng-if="role.type!=1&&(role.state==1||role.state==2)">
+		<div class="row" ng-repeat="reply in data.replys">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">{{reply.type==0?'物业回复':'业主回复'}}：</p>
+					<p class="col-md-8 text-left">{{reply.createDate}}</p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">内容：</p>
+					<p class="col-md-8 text-left">{{reply.content}}</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</section>
+	<!-- 投诉、表扬：已解决 -->
+	<!-- <section ng-if="role.type!=1&&(role.state==1||role.state==2)">
+		<div class="row" ng-repeat="reply in data.replys">
+			<div class="col-md-6">
+				<div class="row">
+					<p class="col-md-4">业主确认解决：</p>
+					<p class="col-md-8 text-left">{{reply.createDate}}</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</section> -->
+</div>
+<div class="modal-footer" ng-if="footer">
+	<button class="btn btn-success" ng-click="$dismiss()">取消</button>
+	<button class="btn btn-danger" ng-click="$close()">确认</button>
+</div>

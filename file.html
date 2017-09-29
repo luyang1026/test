@@ -1,29 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<script>
-		window.onload = function(){
-			var btn = document.getElementsByTagName('button')[0];
-			var file = document.querySelector('input');
-			var six = 11;
-			var bolbSix = new Blob([six]);
-			btn.onclick = function(){
-				var fileItem = file.files[0]
-				console.log(fileItem)
-				var reader = new FileReader()
-				reader.readAsText(fileItem);
-				reader.onload = function(){
-					console.log(this.result)
-				}
-			}
-
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    (function(root, fn, plug){
+      fn(jQuery, plug)
+    })(this,function(jQuery, plug){
+    	var _rules = {
+	    "reg":function(data){
+	        return new RegExp(data).test(this.val())
+	    },
+	    "required":function(data){
+	        return !!this.val()
+	    },
+	    "maxlength":function(data){
+	        return this.val().length <= data
+	    }
+	}
+ 	jQuery.fn[plug] = function (options) {
+		if (!this.is('form')) return this
+		var _this = this
+		var Default = {
+		    initEvent: 'input',
+		    plugName: 'dr'
 		}
-	</script>
+		$.extend(this, Default, options)
+		this.$file =  this.find('input')
+		console.log(_rules)
+		this.$file.on(this.initEvent,function(){
+			var _this = this
+			$(this).siblings('p').remove()
+			$.each(_rules,function(key,fn){
+			    var inputdata = $(_this).data(Default.plugName+'-'+key)
+			    var message = $(_this).data(Default.plugName + '-' + key + '-message')
+			    if (inputdata) {
+			        var result = fn.call($(_this),inputdata)
+			        if(!result){
+			        	$(_this).after("<p style='color:red'>"+message+"</p>")
+			        }
+			    }
+			 })
+		 })
+        	return this
+         }
+         jQuery.fn[plug].extend = function(option){
+         		$.extend(_rules, option)
+         }
+      },'dataResult')
+  </script>
+  <script>
+    $(function(){
+    	$('form').dataResult.extend({a:function(n){console.log(!this.val()%n);return !(this.val()%n)}})
+      var r = $('form').dataResult({
+      	initEvent: 'blur'
+      })
+    })
+  </script>
 </head>
 <body>
-	<input type="file">
-	<button>read</button>
+ <form style="width:50%;margin: 0 auto">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input
+    data-dr-reg = "^\w+@\w+\.\w+$"
+    data-dr-reg-message = "邮箱不合法"
+    data-dr-required="true"
+    data-dr-required-message="请填写邮箱"
+    data-dr-maxlength ="10"
+    data-dr-maxlength-message ="超过10"
+    data-dr-a="3"
+    data-dr-a-message="不能被3整除"
+     type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputName">Name</label>
+    <input type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp" placeholder="Enter name">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 </body>
 </html>

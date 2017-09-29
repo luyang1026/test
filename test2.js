@@ -1,2 +1,4 @@
-var test = require('./test.js');
-console.log(test.a.a)
+function test() {
+    console.log(123)
+}
+export default {test}

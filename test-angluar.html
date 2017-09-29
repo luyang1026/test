@@ -13,9 +13,15 @@
 				ls.set('ac',{a:1,b:[12,2,3]})
 				console.log(ls.length())
 			})
+			.controller('ctrl',function($scope){
+				$scope.a = 100;
+			})
 	</script>
 </head>
 <body>
 	<input type="text" ng-model="a">{{show}}
+	<div ng-controller="ctrl">
+		<button ng-click="a=12">click</button>{{a}}
+	</div>
 </body>
 </html>

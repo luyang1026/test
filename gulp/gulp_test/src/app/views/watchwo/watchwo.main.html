@@ -1,0 +1,165 @@
+ <div class="swalk-category-list container-fluid">
+    <!-- BEGIN MAIN CONTENT -->
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="crumb">
+                    工单监控 <span class="crumb-arrow">></span> <span class="second">工单进度</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" style="margin-top:20px;" name="watch_query_form" ng-class="{oncheck:oncheck}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="subscriber-merchId" class="col-md-3 control-label">城市</label>
+                    <div class="col-md-9">
+                        <select class="form-control" ng-change="action.alterCity(formData.city)" ng-model="formData.city" required>
+                            <option value="">--请选择城市--</option>
+                            <option ng-value="city" ng-repeat="(index,city) in cityList">{{city}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="subscriber-merchName" class="col-md-3 control-label">小区</label>
+                    <div class="col-md-9">
+                        <select class="form-control" ng-model="formData.communityId" required>
+                           <option value="">--请选择小区--</option>
+                           <option ng-value="community.id" ng-repeat="community in communities">{{community.name}}</option>
+                       </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="subscriber-contractId" class="col-md-3 control-label">类别</label>
+                    <div class="col-md-9">
+                        <select name="" id="" class="form-control" ng-model="formData.cata" ng-options="skill.name for skill in skillTags" required>
+                            <option value="">--请填写类别--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+           <div class="col-md-6">
+               <div class="form-group">
+                    <label for="subscriber-contractId" class="control-label col-md-3">交易时间</label>
+                    <div class="col-md-9">
+                        <input type="text" id="subscriber-contractId" class="form-control" ng-model="formData.transDate" my-date-picker data-min-view="3" data-start-view="3">
+                    </div>
+               </div>
+           </div>
+        </div>
+        <div class="row">
+           <div class="col-md-6">
+                <div class="form-group">
+                    <label for="subscriber-bankId" class="col-md-3 control-label">项目</label>
+                    <div class="col-md-9 wo-items">
+                         <button type="button" class="btn btn-default" ng-init="$index==0&&(type.selected=true);" ng-class="{'btn-info':type.selected}" ng-repeat="type in woType" ng-click="action.onChooseItem(type)">{{type.name}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:20px">
+            <div class="col-md-2">
+                <button ng-click="action.exportExcel()" class="btn btn-success btn-add" ng-disabled="!afterSearch">导出excel</button>
+            </div>
+            <div class="col-md-3 col-md-offset-7 text-right">
+                <button type="button" class="btn btn-detail" ng-click="action.onQuery()">查询</button>
+                <button type="button" class="btn btn-success btn-reset" ng-click="action.reset()">重置</button>
+            </div>
+        </div>
+        <hr>
+    </form>
+    <div class="row">
+         <div class="col-md-12">
+            <div class="row">
+                <div for="subscriber-bankId" class="col-md-1 text-center" style="padding:6px 18px;font-size:110%;"><strong>状态</strong></div>
+                <div class="col-md-10 wo-status">
+                    <button type="button" class="btn btn-default" ng-init="$index==0&&(state.selected=true);" ng-class="{'btn-info':state.selected}" ng-repeat="state in states" ng-click="action.onChooseState(state)" ng-disabled="!afterSearch">{{state.name}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="min-height:380px;">
+        <table class="table table-bordered table-hover text-center" style="margin-top:20px;" ng-if="formData.type==1">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>报修设备</th>
+                    <th>报修单号</th>
+                    <th>楼号</th>
+                    <th>单元</th>
+                    <th>房间号 </th>
+                    <th>报修时间</th>
+                    <th>处理状态时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list">
+                    <td>{{$index+1+(currentPage-1)*10}}</td>
+                    <td>{{item.device}}</td>
+                    <td>{{item.number}}</td>
+                    <td>{{item.house.block}}</td>
+                    <td>{{item.house.unit}}</td>
+                    <td>{{item.house.room}}</td>
+                    <td>{{item.createDate|date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.lastModifiedDate|date:'yyyy-MM-dd'}}</td>
+                    <td ng-if="item.state=='0'">待指派</td>
+                    <td ng-if="item.state=='1'">处理中</td>
+                    <td ng-if="item.state=='2'||item.state=='3'">已维修</td>
+                    <td ng-if="item.state=='4'">报修关闭</td>
+                    <td>
+                        <button class="btn btn-link btn-xs" ng-click="action.checkDetail(item.id,item.state)">详情</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table  ng-if="formData.type==2||formData.type==3" class="table table-bordered table-hover text-center" style="margin-top:20px;">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>分类</th>
+                    <th>内容</th>
+                    <th>投诉时间</th>
+                    <th>处理状态时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list">
+                    <td>{{$index+1+(currentPage-1)*10}}</td>
+                    <td ng-if="item.category=='1'">物业服务</td>
+                    <td ng-if="item.category=='2'">环境保护</td>
+                    <td ng-if="item.category=='3'">设备养护</td>
+                    <td ng-if="item.category=='4'">治安秩序</td>
+                    <td ng-if="item.category=='5'">街坊邻里</td>
+                    <td ng-if="item.category=='6'">其它</td>
+                    <td>{{item.content}}</td>
+                    <td>{{item.createDate|date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.lastModifiedDate|date:'yyyy-MM-dd'}}</td>
+                    <td ng-if="item.state=='0'">待回复</td>
+                    <td ng-if="item.state=='1'">已回复</td>
+                    <td ng-if="item.state=='2'">已解决</td>
+                    <td>
+                        <button class="btn btn-link btn-xs" ng-click="action.checkDetail(item.id,item.state)">详情</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-if="list.length==0" class="text-center" style="height:100px;line-height:100px;">--- 无数据 ---</div>
+    </div>
+    <div class="row text-center page-area">
+        <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="10" boundary-link-numbers="true" ng-change="action.pageRefresh(currentPage-1)" previous-text="上一页" next-text="下一页" ng-disabled="!afterSearch">
+        </uib-pagination>    
+    </div>
+</div>

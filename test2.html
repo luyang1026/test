@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-	<script>
-		sessionStorage.setItem
-	</script>
-</head>
-<body>
-	<button id="btn">click</button>
+<script>
+var someAsyncThing = function() {
+  return new Promise(function(resolve, reject) {
+    // 下面一行会报错，因为x没有声明
+    return reject(new Error('erra'));
+  });
+};
 
-	<script>
-		$('#btn').click(function(event) {
-			sessionStorage.setItem('a',1)
-		});
-		
-	</script>
-</body>
-</html>
+someAsyncThing().then(res=>console.log(res)).catch(res=> console.log(res))
+</script>

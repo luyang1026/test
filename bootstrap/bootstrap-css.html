@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="bootstrap.css">
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/bootstrap/js/dropdown.js"></script>
+	<script>
+	'use strict'
+		$(function(){
+			$('#btn').click(function(event) {
+				$('.btn-group>button:first').after('<span style="position:absolute;top:0"></span>')
+			});
+		})
+	</script>
+	<style>
+		.op div{
+			width: 100px;
+			height: 100px;
+			background: #f00;
+			float: left;
+			margin-left: -14px;
+			opacity: 0.9;
+		}
+		.op div:first-child{
+			background-color: #0f0;
+		}
+	</style>
+</head>
+<body>
+	<!-- Single button -->
+	<!-- <div class="btn-group">
+	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+	    Action <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" role="menu">
+	    <li><a href="#">Action</a></li>
+	    <li><a href="#">Another action</a></li>
+	    <li><a href="#">Something else here</a></li>
+	    <li class="divider"></li>
+	    <li><a href="#">Separated link</a></li>
+	  </ul>
+	</div> -->
+	<button id="btn">click</button>
+	<br>
+	<div class="btn-group">
+		<button class="btn btn-default" title="gogo" disabled>
+			<span class="glyphicon glyphicon-search"></span>
+			<span>sdsf</span>
+		</button>
+		<button class="btn btn-default" title="gogo" disabled>
+			<span class="glyphicon glyphicon-search"></span>
+			<span>sdsf</span>
+		</button>
+		<button class="btn btn-default" title="gogo" disabled>
+			<span class="glyphicon glyphicon-search"></span>
+			<span>sdsf</span>
+		</button>
+	</div>
+	<div class="op">
+		<div></div>
+		<div></div>
+	</div>
+</body>
+</html>

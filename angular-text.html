@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script>
+	var s ;
+	var s1;
+		angular.module('app',[])
+			.controller('ctrl',function($scope){
+				$scope.name = 'ly'
+				s=$scope;
+			})
+			.directive('dir',function($q){
+				$('#dir').append('<span ng-click="miao()">click me</span>');
+
+				return{
+					// template:'<span ng-click="miao()">click me</span>',
+					// controller:function($scope){
+					// 	console.log(s==$scope)
+					// 	$scope.miao = function(){
+					// 		console.log($scope.name)
+					// 	}
+
+					// }
+				}
+			})
+	</script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<p>{{name}}</p>
+		<p dir id="dir"></p>
+	</div>
+</body>
+</html>

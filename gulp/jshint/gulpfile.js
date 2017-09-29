@@ -15,8 +15,10 @@ gulp.task('js',function(){
 })
 gulp.task('css',function(){
 	return gulp.src(['src/**/*.less','src/**/*.css'])
-		.pipe($.less())
-		.pipe($.concat('main.css'))
+		.pipe($.sourcemaps.init())
+			.pipe($.less())
+			.pipe($.concat('main.css'))
+		.pipe($.sourcemaps.write())
 		.pipe(gulp.dest('.tmp/style'))
 })
 
@@ -29,7 +31,7 @@ gulp.task('inject',['css','js'],function(){
 	var scriptToInject = gulp.src(['.tmp/**/*.js'],{read:false});
 	return gulp.src('src/index.html')
 		.pipe(gulp.dest('.tmp',{prefix:1}))
-		.pipe(wiredep())
+		.pipe(wiredep())//这里把bower安装的包全都引入到目标文件容器里
 		.pipe($.inject(scriptToInject,{relative: true}))
 		.pipe($.inject(stylesToInject,{relative: true}))
 		.pipe(gulp.dest('.tmp'))
@@ -85,3 +87,8 @@ gulp.task('test', ['clean'], function() {
 		}))
 		.pipe(gulp.dest('.tmp'));
 });
+/************************************************************/
+gulp.task('sourcemap',function(){
+
+})
+/************************************************************/

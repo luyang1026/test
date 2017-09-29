@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" href="bootstrap.css">
-	<link rel="stylesheet" href="bower_components/ui-bootstrap-csp.css">
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/angular-animate.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script>
-		angular.module('app',['ngAnimate','ui.bootstrap'])
-			.controller('ctr',function($scope){
-				$scope.a = 1;
-			})
-	</script>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    .view{perspective:1000px;}
+    .stage{transform-style: preserve-3d;}
+    .cube{position: relative;margin: 200px auto 0;height: 400px;width: 400px;transform-style: preserve-3d;
+    }
+    .side{
+      width: 400px;height: 400px;background-repeat: no-repeat;background-size: 100% 100%;position: absolute;
+    }
+    .side:nth-child(1){background-image: url(../mp3/0.jpg);}
+    .side:nth-child(2){background-image: url(../mp3/1.jpg);transform: translateX(400px)rotateY(-90deg);transform-origin: 0 50%;}
+    .side:nth-child(3){background-image: url(../mp3/2.jpg);transform: rotateY(180deg) translateZ(-400px);}
+    .side:nth-child(4){background-image: url(../mp3/3.jpg);}
+  </style>
 </head>
-<body ng-controller="ctr">
-	<uib-accordion>
-	    <uib-accordion-group heading="Static Header, initially expanded" >
-	      This content is straight in the template.
-	    </uib-accordion-group>
-	     <uib-accordion-group heading="Static Header, initially expanded"">
-	    	{{a}}
-	    </uib-accordion-group>
-  </uib-accordion>	{{a}}
+<body>
+  <div class="view">
+    <div class="stage">
+      <div class="cube">
+        <div class="side"></div>
+        <div class="side"></div>
+        <div class="side"></div>
+        <!-- <div class="side"></div> -->
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -1,13 +1,16 @@
-var obj = {
-	val:100,
-	get getval(){
-		return this.val;
-	},
-	set setval(v){
-		this.val = v;
-	},
-	fn(){
-		return 11;
-	}
-}
-console.log(Object.getOwnPropertySymbols(obj));
+var express = require('express')
+var app = express()
+
+app.get('/:id',(req,res,next)=>{
+  res.end(1)
+  if (id == 0) {
+
+  }
+},(req,res)=>{
+
+})
+app.get('/',(req,res)=>{
+  res.end(1)
+})
+
+app.listen(8888)

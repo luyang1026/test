@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<style>
+		.active{background: yellow}
+	</style>
+	<script src="bower_components/angular/angular.js"></script>
+	<script>
+		angular.module('app',[])
+			.controller('c',function($scope,$interval){
+				$scope.arr = [
+					{name:'ly',id:1},
+					{name:'meishu',id:2},
+					{name:'junyi',id:3},
+				]
+				$scope.a = 1;
+				$scope.$watch('a',function(a,b){
+					console.log(a,b)
+				})
+			})
+			.directive('btns',function(){
+				return {
+					scope:{
+						btns:'=source',
+						myAttr:'='
+					},
+					template:'<button ng-repeat="btn in btns" ng-class="{active:btn.active}" ng-click="click(btn)">{{btn.name}}</button>',
+					controller:function($scope){
+						$scope.click = function(btn){
+							this.btns.forEach(function(item){item.active=false});
+							btn.active = true;
+							$scope.myAttr = btn.id;
+						}
+					}
+				}
+			})
+	</script>
 </head>
-<body>
-	<input x-webkit-speech lang="zh-CN" />
+<body ng-controller="c">
+	<btns source="arr" my-attr="a"></btns>
 </body>
 </html>

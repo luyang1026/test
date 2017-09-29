@@ -1,0 +1,109 @@
+ <div class="swalk-category-list container-fluid">
+    <!-- BEGIN MAIN CONTENT -->
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="crumb">
+                    创建工单 <span class="crumb-arrow">></span> <span class="second">工单录入</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" style="margin-top:20px;" name="createwo_entry_form" ng-class="{oncheck:oncheck}">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="subscriber-merchId" class="col-md-4 control-label">城市</label>
+                    <div class="col-md-8">
+                        <select class="form-control" ng-change="action.alterCity(formData.city)" ng-model="formData.city" required>
+                            <option value="">--请选择城市--</option>
+                            <option ng-value="city" ng-repeat="(index,city) in cityList">{{city}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="subscriber-merchName" class="col-md-4 control-label">小区</label>
+                    <div class="col-md-8">
+                       <select class="form-control" ng-model="formData.community" required ng-options="community.name for community in communities">
+                           <option value="">--请选择小区--</option>
+                       </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="subscriber-merchId" class="col-md-4 control-label">业主</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="formData.name" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="subscriber-merchName" class="col-md-4 control-label">电话</label>
+                    <div class="col-md-8">
+                       <input type="text" class="form-control" ng-pattern="/^(\d|-){8,11}$/"  ng-model="formData.phone" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="subscriber-contractId" class="col-md-4 control-label">类别</label>
+                    <div class="col-md-8">
+                        <select name="" id="" class="form-control" ng-model="formData.cata" required ng-options="skill.name for skill in skillTags">
+                            <option value="">--请填写类别--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group" ng-if="formData.type==1">
+                    <label for="subscriber-contractId" class="col-md-4 control-label">房屋信息</label>
+                    <div class="col-md-8">
+                        <input type="text" name="houseInfo" id="subscriber-contractId" class="form-control" ng-model="formData.houseInfo" ng-pattern="/^[^-]+-[^-]+-[^-]+$/" placeholder="楼栋号-单元号-房间号" uib-tooltip="格式为：楼栋号-单元号-房间号" tooltip-enable="createwo_entry_form.houseInfo.$invalid" tooltip-trigger="blur" ng-required="formData.type==1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="subscriber-bankId" class="col-md-4 control-label">项目</label>
+                    <div class="col-md-8 wo-items">
+                        <button type="button" class="btn btn-default" ng-init="$index==0&&(type.selected=true);" ng-class="{'btn-info':type.selected}" ng-repeat="type in woType" ng-click="action.onChooseItem(type)">{{type.name}}</button>
+                    </div>
+                </div>
+            </div>      
+            <div class="col-md-4">
+                <div class="form-group" ng-if="formData.type!=1">
+                    <label for="subscriber-bankId" class="col-md-4 control-label">是否匿名</label>
+                    <div class="col-md-8" name="houseInfo" style="padding-top:7px">
+                         <input type="checkbox" ng-model="formData.anonymous">
+                    </div>
+                </div>
+            </div>      
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="subscriber-channel-type" class="col-md-4 control-label">描述</label>
+                    <div class="col-md-8">
+                        <textarea class="form-control" rows="8" placeholder="最多允许输入200字" ng-model="formData.description" maxlength="200" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-success btn-add" ng-click="action.onSubmit()">提交</button>
+                <button type="button" class="btn btn-primary btn-add" ng-click="action.reset()">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
